@@ -23,13 +23,11 @@ ysec = 365.25*24*3600
 ma = 1e6*ysec
 
 def tshow(m):
-    x = np.linspace(0, m['tc'], m['n'])
-    dx = x[1] - x[0]
-    plt.plot(m['t'], x, 'b')
+    plt.plot(m['t'], m['x'], 'b')
     plt.ylim(m['tc'], 0)
-    plt.xlabel('x')
-    plt.ylabel('Teplota')
-    plt.title('Tok na povrchu {:.2f} mW/m2'.format(1000 * m['k'] * (m['t'][1] - m['t'][0]) / dx))
+    plt.xlabel('Teplota')
+    plt.ylabel('Hloubka')
+    plt.title('Tok na povrchu {:.2f} mW/m2'.format(1000 * m['k'] * (m['t'][1] - m['t'][0]) / m['dx']))
 
 def kappa(m):
     return m['k'] / (m['rho'] * m['c'])
