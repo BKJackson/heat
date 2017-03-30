@@ -27,14 +27,16 @@ def tshow(m):
     plt.ylim(m['tc'], 0)
     plt.xlabel('Teplota')
     plt.ylabel('Hloubka')
-    plt.title('Tok na povrchu {:.2f} mW/m2'.format(1000 * m['k'] * (m['t'][1] - m['t'][0]) / m['dx']))
+    plt.title('Čas: {:.2f} Ma  Tepelný tok na povrchu: {:.2f} mW/m2'.format(m['time']/ma, 1000 * q_surface(m)))
 
 def kappa(m):
     return m['k'] / (m['rho'] * m['c'])
 
+def q_surface(m):
+    return m['k'] * (m['t'][1] - m['t'][0]) / m['dx']
+
 def max_dt(m):
-    dx = m['tc'] / (m['n'] - 1)
-    return dx**2 / (2 * kappa(m))
+    return m['dx']**2 / (2 * kappa(m))
 
 def init(m):
     """ Stacionarni reseni a inicializace"""
@@ -47,10 +49,11 @@ def init(m):
     b = -d * m['H'] * m['dx']**2 / m['k']
     # Okrajove podminky
     A[0, :2] = [1, 0]
-    b[0] = 0
+    b[0] = m['T0']
     A[-1, -2:] = [2, -2]
     b[-1] += 2 * m['q'] * m['dx'] / m['k']
     # reseni
+    m['time'] = 0
     m['t'] = spsolve(A, b)
 
 def ftcs(m, dt):
@@ -64,9 +67,10 @@ def ftcs(m, dt):
     
     #Okrajove podminky
     A[0, :2] = [1, 0]
-    b[0] = 0
+    b[0] = m['T0']
     A[-1, -2] = 2*u
     b[-1] = dt*(m['H']*m['dx'] - 2*m['q']) / (m['rho'] * m['c']*m['dx'])
     
     # reseni
+    m['time'] += dt
     m['t'] = A.dot(m['t']) + b
