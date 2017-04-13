@@ -1,6 +1,6 @@
 
 Heat transfer in geology
-====
+========================
 
 Materials for Heat transfer in geology course
 
@@ -11,3 +11,6 @@ Materials for Heat transfer in geology course
 * [Evoluční řešení - FTCS](http://nbviewer.jupyter.org/github/ondrolexa/heat/blob/master/02-evol-ftcs.ipynb)
 
 * [Knihovna heatlib_const](http://nbviewer.jupyter.org/github/ondrolexa/heat/blob/master/03-knihovna-heatlib_const.ipynb)
+
+* [Stacionární řešení - variabilní konduktivita a produkce](http://nbviewer.jupyter.org/github/ondrolexa/heat/blob/master/05-stac1d-var.ipynb)
+
