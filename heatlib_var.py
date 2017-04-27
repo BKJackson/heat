@@ -10,7 +10,9 @@ a Neumannovou podminkou dole
 
 Priklad:
 from heatlib_var import *
-m = dict(n=100, k=2.25*np.ones(99), H=1e-6*np.ones(99), tc=35000, T0=0, q=-0.02)
+m = dict(n=100, k=2.25*np.ones(99), H=1e-6*np.ones(99),
+         rho=2700*np.ones(99), c=800*np.ones(99),
+         tc=35000, T0=0, q=-0.02)
 init(m)
 """
 
@@ -53,5 +55,24 @@ def init(m):
     b = np.hstack((0, -(m['H'][:-1] + m['H'][1:])*m['dx']**2/2, m['q']*2*m['dx'] - m['H'][-1]*m['dx']**2))
     # reseni
     m['time'] = 0
+    m['t'] = spsolve(A, b)
+
+def btcs(m, dt):
+    """ Evolucni reseni schema BTCS """
+    # helpers
+    li = m['k'][:-1]/m['dx']**2
+    ri = m['k'][1:]/m['dx']**2
+    mi = (m['rho'][:-1] + m['rho'][1:]) * (m['c'][:-1] + m['c'][1:]) / (4*dt)
+    # Sestaveni diagonal matice soustavy
+    dl = np.hstack((-li,  -2*ri[-1], 0))
+    dh = np.hstack((1, mi + ri + li, m['rho'][-1]*m['c'][-1]/dt + 2*ri[-1]))
+    du = np.hstack((0, 0, -ri))
+    # matice soustavy
+    A = spdiags([dl, dh, du], [-1, 0, 1], m['n'], m['n'], 'csr')
+    # vektor pravy strany
+    Hm = (m['H'][:-1] + m['H'][1:])/2
+    b = np.hstack((m['T0'], Hm + mi*m['t'][1:-1], m['H'][-1]-2*m['q']/m['dx'] + m['t'][-1]*m['rho'][-1]*m['c'][-1]/dt))
+    # reseni
+    m['time'] += dt
     m['t'] = spsolve(A, b)
 
