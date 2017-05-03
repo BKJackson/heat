@@ -52,7 +52,7 @@ def init(m):
     # matice soustavy
     A = spdiags([kd, km, ku], [-1, 0, 1], m['n'], m['n'], 'csr')
     # vektor pravy strany
-    b = np.hstack((0, -(m['H'][:-1] + m['H'][1:])*m['dx']**2/2, m['q']*2*m['dx'] - m['H'][-1]*m['dx']**2))
+    b = np.hstack((m['T0'], -(m['H'][:-1] + m['H'][1:])*m['dx']**2/2, m['q']*2*m['dx'] - m['H'][-1]*m['dx']**2))
     # reseni
     m['time'] = 0
     m['t'] = spsolve(A, b)
