@@ -31,14 +31,8 @@ def tshow(m):
     plt.ylabel('Hloubka')
     plt.title('Čas: {:.2f} Ma  Tepelný tok na povrchu: {:.2f} mW/m2'.format(m['time']/ma, 1000 * q_surface(m)))
 
-def kappa(m):
-    return m['k'] / (m['rho'] * m['c'])
-
 def q_surface(m):
     return m['k'][0] * (m['t'][1] - m['t'][0]) / m['dx']
-
-def max_dt(m):
-    return m['dx']**2 / (2 * kappa(m))
 
 def init(m):
     """ Stacionarni reseni a inicializace"""

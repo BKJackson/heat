@@ -14,3 +14,6 @@ Materials for Heat transfer in geology course
 
 * [Stacionární řešení - variabilní konduktivita a produkce](http://nbviewer.jupyter.org/github/ondrolexa/heat/blob/master/05-stac1d-var.ipynb)
 
+* [Knihovna heatlib_var](http://nbviewer.jupyter.org/github/ondrolexa/heat/blob/master/06-knihovna-heatlib_var.ipynb)
+
+* [Stacionární řešení - teplotně závislá konduktivita](http://nbviewer.jupyter.org/github/ondrolexa/heat/blob/master/07-variable_kondiktivity.ipynb)
