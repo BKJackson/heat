@@ -16,4 +16,4 @@ Materials for Heat transfer in geology course
 
 * [Knihovna heatlib_var](http://nbviewer.jupyter.org/github/ondrolexa/heat/blob/master/06-knihovna-heatlib_var.ipynb)
 
-* [Stacionární řešení - teplotně závislá konduktivita](http://nbviewer.jupyter.org/github/ondrolexa/heat/blob/master/07-variable_kondiktivity.ipynb)
+* [Stacionární řešení - teplotně závislá konduktivita](http://nbviewer.jupyter.org/github/ondrolexa/heat/blob/master/07-variable_conductivity.ipynb)
